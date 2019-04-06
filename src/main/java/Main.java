@@ -11,5 +11,9 @@ public class Main {
 
         userDAO.add(user);
         System.out.println(userDAO.read(1L));
+
+        user.setAge(23);
+        userDAO.update(1L, user);
+        System.out.println(userDAO.read(1L));
     }
 }
