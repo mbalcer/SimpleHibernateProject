@@ -15,5 +15,7 @@ public class Main {
         user.setAge(23);
         userDAO.update(1L, user);
         System.out.println(userDAO.read(1L));
+
+        userDAO.delete(1L);
     }
 }

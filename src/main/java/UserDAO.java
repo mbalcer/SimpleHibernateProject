@@ -52,4 +52,20 @@ public class UserDAO {
             session.close();
         }
     }
+
+    public void delete(Long id) {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            User user = session.find(User.class, id);
+            session.delete(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }
