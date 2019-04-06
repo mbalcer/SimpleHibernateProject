@@ -29,6 +29,7 @@ public class UserDAO {
             return user;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             session.close();
         }
