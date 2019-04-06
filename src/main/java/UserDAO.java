@@ -19,4 +19,18 @@ public class UserDAO {
             session.close();
         }
     }
+
+    public User read(Long id) {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        Session session = hibernateFactory.getSessionFactory().openSession();
+
+        try {
+            User user = session.get(User.class, id);
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }
