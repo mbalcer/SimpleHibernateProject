@@ -1,6 +1,10 @@
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
@@ -67,5 +71,20 @@ public class UserDAO {
         } finally {
             session.close();
         }
+    }
+
+    public List<User> readAll() {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        List<User> userList = new ArrayList<User>();
+        try {
+            Query query = session.createQuery("FROM "+User.class.getName());
+            userList = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return userList;
     }
 }

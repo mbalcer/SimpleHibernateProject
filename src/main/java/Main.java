@@ -1,21 +1,25 @@
 import model.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Main {
     public static void main(String[] args) {
         UserDAO userDAO = new UserDAO();
 
-        User user = new User();
-        user.setUsername("Mateusz");
-        user.setPassword("pass123");
-        user.setAge(22);
+        String userList = userDAO.readAll().stream()
+                .map(user -> {
+                    return String.format("(%d) %s - age: %d", user.getId(), user.getUsername(), user.getAge());
+                }).collect(Collectors.joining("\n"));
 
+        System.out.println(userList);
+
+        User user = new User("Jan", "janek123", 55);
         userDAO.add(user);
-        System.out.println(userDAO.read(1L));
 
-        user.setAge(23);
-        userDAO.update(1L, user);
-        System.out.println(userDAO.read(1L));
-
-        userDAO.delete(1L);
+        userDAO.read(8L);
+        user.setAge(33);
+        userDAO.update(8L, user);
+        userDAO.delete(8L);
     }
 }
